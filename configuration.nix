@@ -12,13 +12,23 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      ./modules/base.nix
+      ./modules/boot.nix
+      ./modules/networking.nix
+      ./modules/shell.nix
+      ./modules/packages.nix
+      ./modules/ssh.nix
+      ./modules/docker.nix
+      ./modules/k3s.nix
+      ./modules/nvf.nix
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -26,68 +36,69 @@ in
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Europe/Kyiv";
+  # time.timeZone = "Europe/Kyiv";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  # i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "uk_UA.UTF-8";
-    LC_IDENTIFICATION = "uk_UA.UTF-8";
-    LC_MEASUREMENT = "uk_UA.UTF-8";
-    LC_MONETARY = "uk_UA.UTF-8";
-    LC_NAME = "uk_UA.UTF-8";
-    LC_NUMERIC = "uk_UA.UTF-8";
-    LC_PAPER = "uk_UA.UTF-8";
-    LC_TELEPHONE = "uk_UA.UTF-8";
-    LC_TIME = "uk_UA.UTF-8";
-  };
+#  i18n.extraLocaleSettings = {
+#    LC_ADDRESS = "uk_UA.UTF-8";
+#    LC_IDENTIFICATION = "uk_UA.UTF-8";
+#    LC_MEASUREMENT = "uk_UA.UTF-8";
+#    LC_MONETARY = "uk_UA.UTF-8";
+#    LC_NAME = "uk_UA.UTF-8";
+#    LC_NUMERIC = "uk_UA.UTF-8";
+#    LC_PAPER = "uk_UA.UTF-8";
+#    LC_TELEPHONE = "uk_UA.UTF-8";
+#    LC_TIME = "uk_UA.UTF-8";
+#  };
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+#  services.xserver.xkb = {
+#    layout = "us";
+#    variant = "";
+#  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.idapp = {
-    isNormalUser = true;
-    description = "idapp";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [];
-    openssh.authorizedKeys.keys = sshKeys.idapp;
-  };
+  # users.users.identityapproved = {
+    # isNormalUser = true;
+    # description = "identityapproved";
+    # initialPassword = "letsalllovelain"; 
+    # extraGroups = [ "networkmanager" "wheel" "docker" ];
+    # packages = with pkgs; [];
+    # openssh.authorizedKeys.keys = sshKeys.identityapproved;
+  # };
 
   # Enable automatic login for the user.
-  services.getty.autologinUser = "idapp";
+  # services.getty.autologinUser = "identityapproved";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    neovim
-    zoxide
-    ethtool
-    iw
-    lazydocker
-    curl
-    wget
-    htop
-    tmux
-    tree
-  ];
+  # environment.systemPackages = with pkgs; [
+  #  git
+  #  vim
+  #  neovim
+  #  zoxide
+  #  ethtool
+  #  iw
+  #  lazydocker
+  #  curl
+  #  wget
+  #  htop
+  #  tmux
+  #  tree
+  # ];
 
   # Docker
   # virtualisation.docker.enable = true;
   
-  virtualisation.docker.rootless = {
-  enable = true;
-  setSocketVariable = true;
-  };
+#  virtualisation.docker.rootless = {
+#  enable = true;
+#  setSocketVariable = true;
+#  };
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -103,23 +114,21 @@ in
   # --------------------------------------
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  # services.openssh.settings.PasswordAuthentication = false;
 
-  services.openssh = {
-    enable = true;
-    ports = [ 3232 ];
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      AllowUsers = [ "idapp" ]; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
-      X11Forwarding = false;
-      PermitRootLogin = "no"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-      PubkeyAuthentication = true;
-    };
-  };
+#  services.openssh = {
+#    enable = true;
+#    ports = [ 3232 ];
+#    openFirewall = true;
+#    settings = {
+#      PasswordAuthentication = false;
+#      KbdInteractiveAuthentication = false;
+#      AllowUsers = [ "identityapproved" ]; # Allows all users by default. Can be [ "user1" "user2" ]
+#      UseDns = true;
+#      X11Forwarding = false;
+#      PermitRootLogin = "no"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+#      PubkeyAuthentication = true;
+#    };
+#  };
 
 #   services.cockpit = {
 #     enable = true;
@@ -133,9 +142,9 @@ in
 #   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8080 80 5000 ];
+# networking.firewall.allowedTCPPorts = [ 8080 80 5000 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
+  # Or disable the firewal altogether.
   # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
@@ -147,32 +156,31 @@ in
   system.stateVersion = "25.05"; # Did you read the comment?
 
 ###########################################zsh
-  programs.zsh = {
-    enable = true;
-
-    # Built-in features
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    zsh-autoenv.enable = true;
-
-    ohMyZsh = {
-      enable = true;
-      theme = "random"; # cleaner than robbyrussell, change if you prefer
-      plugins = [
-        "git"
-        "rust"
-        "history"
-	"podman"
-	"python"
-	"zoxide"
-        "docker"
-        "docker-compose"
-      ];
-    };
-  };
+#  programs.zsh = {
+#    enable = true;
+#
+#    # Built-in features
+#    autosuggestions.enable = true;
+#    syntaxHighlighting.enable = true;
+#    zsh-autoenv.enable = true;
+#
+#    ohMyZsh = {
+#      enable = true;
+#      theme = "random"; # cleaner than robbyrussell, change if you prefer
+#      plugins = [
+#        "git"
+#        "rust"
+#        "history"
+#	"python"
+#	"zoxide"
+#        "docker"
+#        "docker-compose"
+#      ];
+#    };
+#  };
 
   # Default shell
-  users.defaultUserShell = pkgs.zsh;
+  # users.defaultUserShell = pkgs.zsh;
 
   # Example: for one user
   # users.users.identityapproved.shell = pkgs.zsh;
