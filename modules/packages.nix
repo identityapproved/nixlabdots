@@ -3,7 +3,6 @@
 {
   environment.systemPackages = with pkgs; [
     git
-    neovim
     vim
     zoxide
     curl
@@ -17,7 +16,6 @@
     lazydocker
     ethtool
     iw
-    tree-sitter
     nil
     pyright
     nodePackages.bash-language-server

@@ -8,6 +8,7 @@ in
     ./hardware-configuration.nix
     ./modules/base.nix
     ./modules/boot.nix
+    ./modules/neovim.nix
     ./modules/networking.nix
     ./modules/shell.nix
     ./modules/packages.nix
