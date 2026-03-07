@@ -1,6 +1,3 @@
 hardware-configuration.nix
 result
-secrets/*.pub
-secrets/*.key
-secrets/*.pem
-secrets/*.dec
+secrets/ssh-keys.nix
