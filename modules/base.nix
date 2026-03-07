@@ -1,4 +1,12 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
+
+let
+  sshKeysPath = ../secrets/ssh-keys.nix;
+  sshKeys =
+    if builtins.pathExists sshKeysPath
+    then import sshKeysPath
+    else [ ];
+in
 
 {
   nix.settings.experimental-features = [
@@ -32,6 +40,7 @@
     isNormalUser = true;
     description = "identityapproved";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
+    openssh.authorizedKeys.keys = sshKeys;
   };
 
   programs.zsh.enable = true;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   services.openssh = {
@@ -10,7 +10,7 @@
       PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      PubkeyAuthentication = false;
+      PubkeyAuthentication = true;
       AllowUsers = [ "identityapproved" ];
       # UseDns = true;
       X11Forwarding = false;
