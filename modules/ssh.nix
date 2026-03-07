@@ -7,10 +7,10 @@
     openFirewall = true;
 
     settings = {
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      PubkeyAuthentication = true;
+      PubkeyAuthentication = false;
       AllowUsers = [ "identityapproved" ];
       # UseDns = true;
       X11Forwarding = false;

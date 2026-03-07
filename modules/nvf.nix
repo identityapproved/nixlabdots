@@ -19,29 +19,26 @@
         theme = {
           enable = true;
           name = "rose-pine";
-          style = "dark";
-	  transparent = true;
+          style = "moon";
+          transparent = true;
         };
 
-        statusline.lualine = {
-	  enable = true;
-	  theme = "auto";
-	};
+        statusline.lualine.enable = true;
+
         telescope.enable = true;
         autocomplete.blink-cmp.enable = true;
+
         treesitter.enable = true;
+        lsp.enable = true;
 
         languages = {
-          enableLSP = true;
           enableTreesitter = true;
           enableFormat = true;
 
           nix.enable = true;
-          rust.enable = true;
           python.enable = true;
-          ts.enable = true;
-          markdown.enable = true;
           bash.enable = true;
+          markdown.enable = true;
         };
       };
     };

@@ -4,13 +4,15 @@
 
 { config, pkgs, ... }:
 
-let
-  sshKeys = import ./secrets/ssh-keys.nix;
-in
+# let
+#   sshKeys = import ./secrets/ssh-keys.nix;
+# in
+
 
 {
   imports =
     [ # Include the results of the hardware scan.
+      # (import ./modules/ssh.nix { inherit sshKeys; })
       ./hardware-configuration.nix
 
       ./modules/base.nix
@@ -23,6 +25,13 @@ in
       ./modules/k3s.nix
       ./modules/nvf.nix
     ];
+
+    # users.users.identityapproved = {
+    #   openssh.authorizedKeys.keyFiles = [
+    #   ./secrets/ssh-keys.nix
+    # ];
+    # };
+
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;

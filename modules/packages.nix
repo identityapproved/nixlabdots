@@ -17,5 +17,10 @@
     lazydocker
     ethtool
     iw
+    tree-sitter
+    nil
+    pyright
+    nodePackages.bash-language-server
+    marksman
   ];
 }
