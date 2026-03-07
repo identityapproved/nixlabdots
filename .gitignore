@@ -1,3 +1,6 @@
 hardware-configuration.nix
-secrets/
 result
+secrets/*.pub
+secrets/*.key
+secrets/*.pem
+secrets/*.dec

@@ -1,12 +1,4 @@
-{ pkgs, ... }:
-
-let
-  sshKeysPath = ../secrets/ssh-keys.nix;
-  sshKeys =
-    if builtins.pathExists sshKeysPath
-    then import sshKeysPath
-    else [ ];
-in
+{ config, pkgs, ... }:
 
 {
   nix.settings.experimental-features = [
@@ -36,11 +28,25 @@ in
 
   services.getty.autologinUser = "identityapproved";
 
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+    secrets."ssh/identityapproved_authorized_keys" = {
+      owner = "root";
+      group = "root";
+      mode = "0444";
+    };
+  };
+
   users.users.identityapproved = {
     isNormalUser = true;
     description = "identityapproved";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
-    openssh.authorizedKeys.keys = sshKeys;
+    openssh.authorizedKeys.keyFiles = [
+      config.sops.secrets."ssh/identityapproved_authorized_keys".path
+    ];
   };
 
   programs.zsh.enable = true;
