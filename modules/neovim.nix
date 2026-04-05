@@ -37,6 +37,20 @@
         vim.o.smartindent = true
         vim.o.termguicolors = true
         vim.o.signcolumn = "yes"
+        vim.o.clipboard = "unnamedplus"
+
+        -- Use OSC52 so clipboard works over SSH and inside tmux.
+        vim.g.clipboard = {
+          name = "OSC 52",
+          copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+          },
+          paste = {
+            ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+          },
+        }
 
         require("lualine").setup()
         require("gitsigns").setup()

@@ -12,6 +12,7 @@ in
     ./modules/networking.nix
     ./modules/shell.nix
     ./modules/packages.nix
+    ./modules/tmux.nix
     ./modules/ssh.nix
     ./modules/docker.nix
     ./modules/k3s.nix
