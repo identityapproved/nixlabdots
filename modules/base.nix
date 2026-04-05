@@ -22,7 +22,7 @@
   };
 
   services.getty.autologinUser = "identityapproved";
-  services.systemd-oomd.enable = true;
+  systemd.oomd.enable = true;
 
   users.users.identityapproved = {
     isNormalUser = true;
