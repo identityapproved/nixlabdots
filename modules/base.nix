@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  networking.hostName = "nixos";
+  networking.hostName = "wifi-lab";
 
   networking.networkmanager.enable = true;
 

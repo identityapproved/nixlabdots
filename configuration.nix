@@ -14,6 +14,7 @@ in
     ./modules/packages.nix
     ./modules/tmux.nix
     ./modules/ssh.nix
+    ./modules/wifi.nix
     ./modules/docker.nix
     ./modules/k3s.nix
   ];
