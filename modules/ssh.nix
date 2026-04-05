@@ -7,13 +7,24 @@
     openFirewall = true;
 
     settings = {
-      PasswordAuthentication = true;
+      AllowUsers = [ "identityapproved" ];
+      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       PubkeyAuthentication = true;
-      AllowUsers = [ "identityapproved" ];
-      # UseDns = true;
+      AuthenticationMethods = "publickey";
       X11Forwarding = false;
-    };
+      AllowAgentForwarding = false;
+      AllowTcpForwarding = false;
+      PermitTunnel = false;
+      AllowStreamLocalForwarding = false;
+      MaxAuthTries = 3;
+      MaxSessions = 2;
+      LoginGraceTime = "30s";
+      ClientAliveInterval = 300;
+      ClientAliveCountMax = 2;
+      UseDns = false;
+      PrintMotd = false;
   };
+};
 }
