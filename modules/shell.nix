@@ -6,7 +6,6 @@
 
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    zsh-autoenv.enable = true;
 
     ohMyZsh = {
       enable = true;
@@ -18,7 +17,7 @@
         "python"
         "zoxide"
         "docker"
-	"tmux"
+        "tmux"
         "docker-compose"
       ];
     };
