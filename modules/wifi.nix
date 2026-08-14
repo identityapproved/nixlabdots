@@ -9,6 +9,10 @@ in
   # Reserve the address on OpenWrt instead of hardcoding it here.
   networking.networkmanager.unmanaged = [ "interface-name:${wifiInterface}" ];
 
+  services.udev.extraRules = ''
+  SUBSYSTEM=="net", ACTION=="add", DRIVERS=="mt76x2u", NAME="netgear_"
+  '';
+
   environment.systemPackages = with pkgs; [
     jq
     yq-go
@@ -21,6 +25,7 @@ in
     lsof
     util-linux
     wirelesstools
+    hostapd-mana
     aircrack-ng
     hcxdumptool
     hcxtools
